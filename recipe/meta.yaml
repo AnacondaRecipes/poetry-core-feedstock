@@ -1,4 +1,4 @@
-{% set version = "1.0.3" %}
+{% set version = "1.0.8" %}
 
 package:
   name: poetry-core
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/p/poetry-core/poetry-core-{{ version }}.tar.gz
-  sha256: 2315c928249fc3207801a81868b64c66273077b26c8d8da465dccf8f488c90c5
+  sha256: 951fc7c1f8d710a94cb49019ee3742125039fc659675912ea614ac2aa405b118
 
 build:
   number: 0
