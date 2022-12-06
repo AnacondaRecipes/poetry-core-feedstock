@@ -1,40 +1,45 @@
-{% set version = "1.0.3" %}
+{% set name = "poetry-core" %}
+{% set version = "1.4.0" %}
 
 package:
-  name: poetry-core
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/p/poetry-core/poetry-core-{{ version }}.tar.gz
-  sha256: 2315c928249fc3207801a81868b64c66273077b26c8d8da465dccf8f488c90c5
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/poetry_core-{{ version }}.tar.gz
+  sha256: 514bd33c30e0bf56b0ed44ee15e120d7e47b61ad908b2b1011da68c48a84ada9
 
 build:
-  number: 0
-  noarch: python
   script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+  skip: True  # [py<37]
 
 requirements:
   host:
     - python
     - pip
-    - intreehooks
+    - wheel
   run:
     - python
+    - importlib-metadata >=1.7.0  # [py<38]
 
 test:
   imports:
     - poetry.core
-    - poetry.core._vendor
   commands:
     - pip check
   requires:
     - pip
 
 about:
-  home: https://pypi.org/project/poetry-core/
-  summary: Core utilities for Poetry
+  home: https://github.com/python-poetry/poetry-core
+  summary: Poetry PEP 517 Build Backend
+  description: Poetry PEP 517 Build Backend & Core Utilities
   license: MIT
+  license_family: MIT
   license_file: LICENSE
+  dev_url: https://github.com/python-poetry/poetry-core
+  doc_url: https://github.com/python-poetry/poetry-core/blob/{{ version }}/README.md
 
 extra:
   recipe-maintainers:
