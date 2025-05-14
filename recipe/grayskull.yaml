@@ -1,0 +1,62 @@
+{% set name = "poetry-core" %}
+{% set version = "2.1.3" %}
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/poetry_core-{{ version }}.tar.gz
+  sha256: 0522a015477ed622c89aad56a477a57813cace0c8e7ff2a2906b7ef4a2e296a4
+build:
+  skip: true  # [py>=400 or py2k]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+requirements:
+  build:
+    - {{ compiler('c') }}
+  host:
+    - python >=3.9,<4.0
+    - pip
+  run:
+    - python >=3.9,<4.0  # 
+test:
+  imports:
+    - extended
+  commands:
+    - pip check
+  requires:
+    - pip
+about:
+  home: https://python-poetry.org/
+  summary: Poetry PEP 517 Build Backend
+  license: MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause
+  license_file:
+    - LICENSE
+    - tests/masonry/builders/fixtures/default_with_excluded_data_toml/LICENSE
+    - tests/masonry/builders/fixtures/case_sensitive_exclusions/LICENSE
+    - tests/masonry/builders/fixtures/complete_new/LICENSE
+    - tests/masonry/builders/fixtures/complete_new/COPYING
+    - tests/masonry/builders/fixtures/exclude_nested_data_toml/LICENSE
+    - tests/masonry/builders/fixtures/complete/LICENSE
+    - tests/masonry/builders/fixtures/complete/COPYING
+    - tests/masonry/builders/fixtures/complete_dynamic/LICENSE
+    - tests/masonry/builders/fixtures/complete_dynamic/COPYING
+    - tests/masonry/builders/fixtures/default_src_with_excluded_data/LICENSE
+    - tests/masonry/builders/fixtures/licenses_and_copying/COPYING.txt
+    - tests/masonry/builders/fixtures/licenses_and_copying/LICENSE.md
+    - tests/masonry/builders/fixtures/licenses_and_copying/LICENSE
+    - tests/masonry/builders/fixtures/licenses_and_copying/COPYING
+    - tests/masonry/builders/fixtures/with-include/LICENSE
+    - tests/masonry/builders/fixtures/invalid_case_sensitive_exclusions/LICENSE
+    - tests/masonry/builders/fixtures/default_with_excluded_data/LICENSE
+    - tests/fixtures/with_license_type_file/LICENSE
+    - src/poetry/core/_vendor/fastjsonschema/LICENSE
+    - src/poetry/core/_vendor/packaging/LICENSE
+    - src/poetry/core/_vendor/packaging/LICENSE.APACHE
+    - src/poetry/core/_vendor/packaging/LICENSE.BSD
+    - src/poetry/core/_vendor/lark/LICENSE
+    - src/poetry/core/_vendor/tomli/LICENSE
+    - src/poetry/core/spdx/license.py
+    - src/poetry/core/spdx/data/licenses.json
+extra:
+  recipe-maintainers:
+    - Arishamays1

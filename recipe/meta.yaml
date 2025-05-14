@@ -10,22 +10,23 @@ source:
   sha256: 0522a015477ed622c89aad56a477a57813cace0c8e7ff2a2906b7ef4a2e296a4
 
 build:
-  script: {{ PYTHON }} -m pip install --no-deps . -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   number: 0
-  skip: true  # [py<38]
+  skip: true  # [py<39]
 
 requirements:
   host:
     - python
-    - pip
     - wheel
+    - setuptools
+    - pip
   run:
     - python
-    - importlib-metadata >=1.7.0  # [py<38]
 
 test:
   imports:
     - poetry.core
+    - poetry.core._vendor
   commands:
     - pip check
   requires:
