@@ -40,6 +40,7 @@ test:
     - pytest-mock
     - python-build
     - tomli-w
+    - git  # [win]
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
