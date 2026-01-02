@@ -1,5 +1,5 @@
 {% set name = "poetry-core" %}
-{% set version = "2.2.0" %}
+{% set version = "2.2.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: b4033b71b99717a942030e074fec7e3082e5fde7a8ed10f02cd2413bdf940b1f
+  sha256: 97e50d8593c8729d3f49364b428583e044087ee3def1e010c6496db76bd65ac5
 
 build:
   number: 0
@@ -20,16 +20,31 @@ requirements:
     - python
   run:
     - python
+    - pendulum >=1.4.4
+    - cachy >=0.2.0
+    # cachy[msgpack]
+    - msgpack-python
 
-# Couldn't run the upstream tests due to dependency missing: poetry, tomli_w, build (for newer versions of python)
 test:
+  source_files:
+    - tests
+    - pyproject.toml
   imports:
     - poetry.core
     - poetry.core._vendor
   requires:
     - pip
+    - pytest
+    - virtualenv
+    - trove-classifiers
+    - pytest-mock
+    - python-build
+    - tomli-w
+    - git  # [win]
   commands:
     - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
 
 about:
   home: https://github.com/python-poetry/poetry-core
