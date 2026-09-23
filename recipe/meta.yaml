@@ -37,7 +37,7 @@ test:
     - python-build
     - tomli-w
     - setuptools
-    - git  # [win]
+    - git
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
