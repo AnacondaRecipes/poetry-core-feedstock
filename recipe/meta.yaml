@@ -1,5 +1,5 @@
 {% set name = "poetry-core" %}
-{% set version = "2.2.1" %}
+{% set version = "2.5.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|replace('-', '_') }}-{{ version }}.tar.gz
-  sha256: 97e50d8593c8729d3f49364b428583e044087ee3def1e010c6496db76bd65ac5
+  sha256: 81d04c9253b19d0604718268d781867c8f7b2128e5b25bbf1e84141eec6b89c4
 
 build:
   number: 0
-  skip: true  # [py<39]
+  skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
@@ -20,10 +20,6 @@ requirements:
     - python
   run:
     - python
-    - pendulum >=1.4.4
-    - cachy >=0.2.0
-    # cachy[msgpack]
-    - msgpack-python
 
 test:
   source_files:
@@ -40,11 +36,12 @@ test:
     - pytest-mock
     - python-build
     - tomli-w
-    - git  # [win]
+    - setuptools
+    - git
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -v tests
+    - pytest -vv tests
 
 about:
   home: https://github.com/python-poetry/poetry-core
